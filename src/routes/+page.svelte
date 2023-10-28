@@ -1,28 +1,25 @@
 <script lang="ts">
+	import { PUBLIC_API_URL } from '$env/static/public';
 	import Card from './Card.svelte';
 	import { io } from 'socket.io-client';
 
 	let selected: number[] = []
-	let cards: string[] = [
-			"RCN1", "GSB1", "BDF1", "GSF2", "BCB2", "RDN2", "BSF3", "RDN3", "GCB3", "RDB1", "BSF2", "GCN3"
-	]
+	let cards: string[] = []
 
-	const socket = io("wss://dented-gigantic-whistle.glitch.me", {
-		withCredentials: true
-	});
+	const socket = io(PUBLIC_API_URL);
+
+	socket.on("new_cards_set", (new_cards) => {
+		console.log(new_cards)
+		cards = new_cards
+	})
 
 	const clickHandler = (card: number) => {
-		socket.emit("reply");
-
 		selected = selected.includes(card)
 				? [...selected.filter((e) => e !== card)]
 				: [card, ...selected]
 
 		if (selected.length === 3) {
-			socket.emit("answer", selected);
-			cards =[
-				"RCB1", "GSB1", "BDB1", "GSB2", "RCB2", "RDB2", "BSF3", "RDN3", "GCB3", "RDB1", "BSF2", "GCN3"
-			]
+			socket.emit("reply", selected);
 		}
 
 		if (selected.length >= 3) {
@@ -30,9 +27,6 @@
 		}
 	}
 
-	socket.on("new_cards", () => {
-
-	})
 </script>
 
 <svelte:head>
