@@ -18,9 +18,7 @@
 	main {
 		margin: 0 auto;
 		box-sizing: border-box;
-		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 100vh;
 	}
 </style>
