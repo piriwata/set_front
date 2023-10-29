@@ -55,7 +55,7 @@
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(3, 1fr);
 		gap: 3%;
-		max-width: 100vh;
+		max-width: 95vw;
 		max-height: 90vh;
 	}
 </style>

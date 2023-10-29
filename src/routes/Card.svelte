@@ -9,7 +9,7 @@
   $: c = color === 'R' ? "#ff0099" : color === 'G' ? "#009900" : "#3333ff"
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 40 58" role="button" on:keypress on:click>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 -1 40 60" role="button" on:keypress on:click>
   <defs>
     <pattern id="R" patternUnits="userSpaceOnUse" width="2" height="2">
       <circle cx="0" cy="0" r="9" fill-opacity="0" />
