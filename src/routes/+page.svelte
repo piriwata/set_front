@@ -7,16 +7,21 @@
 
 	let selected: number[] = [];
 	let cards: string[] = [];
-	let player_score = {};
-	let opponent_scores = [];
+	let player = { socket_id: "Loading", score: 0};
+	let opponents = [];
+	$: total = Object.values(opponents).reduce((sum, num) => sum + num, 0) + (player.score ?? 0);
 
 	const socket = io(PUBLIC_API_URL);
 
 	socket.on("new_cards_set", (new_cards, new_scores) => {
 		cards = new_cards;
-		player_score = new_scores[socket.id] ?? 0
-		delete new_scores[socket.id]
-		opponent_scores = new_scores
+
+		if (socket.id) {
+			player = { socket_id: socket.id, score: new_scores[socket.id] };
+			delete new_scores[socket.id]
+		}
+
+		opponents = new_scores
 	})
 
 	const clickHandler = (card: number) => {
@@ -41,7 +46,7 @@
 
 <section>
 	<div id="header">
-		<Score score={player_score} />
+		<Score player_id={player.socket_id} score={player.score} total={total} />
 	</div>
 	{#each cards as card, i}
 		<Card
@@ -55,8 +60,8 @@
 		/>
 	{/each}
 	<div id="footer">
-		{#each Object.entries(opponent_scores) as score}
-			<Score user={score[0]} score={score[1]} />
+		{#each Object.entries(opponents) as opponent}
+			<Score player_id={opponent[0]} score={opponent[1]} total={total} />
 		{/each}
 	</div>
 </section>

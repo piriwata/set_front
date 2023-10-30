@@ -16,7 +16,7 @@
 	}
 
 	main {
-		margin: 0 auto;
+		margin: 1rem auto;
 		box-sizing: border-box;
 		justify-content: center;
 		align-items: center;
