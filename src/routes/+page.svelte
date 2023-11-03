@@ -17,6 +17,7 @@
 
 	socket.on("new_cards_set", (new_cards, new_scores, cards_serial) => {
 		cards = new_cards;
+		selected = []
 		skip = false;
 		cards_id = cards_serial
 
