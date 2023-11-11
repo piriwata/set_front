@@ -8,7 +8,7 @@
 	let selected: number[] = [];
 	let cards: string[] = [];
 	let player = { socket_id: "Loading", score: 0};
-	let opponents = [];
+	let opponents = {};
 	let skip = false;
 	let cards_id = 0
 	$: total = Object.values(opponents).reduce((sum, num) => sum + num, 0) + (player.score ?? 0);
@@ -97,6 +97,7 @@
 	#footer {
 		width: 80%;
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-around;
 		grid-column: 1/5;
 		margin: 0 auto;
