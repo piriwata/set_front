@@ -33,7 +33,13 @@
 		skip = true;
 	})
 
-	const clickHandler = (card: number) => {
+	const clickHandler = (card?: number) => {
+		if (card === undefined) {
+			socket.emit("reply", [], cards_id);
+			selected = [];
+			return;
+		}
+
 		selected = selected.includes(card)
 				? [...selected.filter((e) => e !== card)]
 				: [card, ...selected];
@@ -60,7 +66,7 @@
 			<div class="blue-message">You lose a turn</div>
 		</div>
 	{/if}
-	<div id="header">
+	<div id="header" on:click={() => clickHandler()}>
 		<Score player_id={player.socket_id} score={player.score} total={total} />
 	</div>
 	{#each cards as card, i}
